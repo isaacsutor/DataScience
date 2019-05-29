@@ -15,7 +15,6 @@ app.layout = html.Div(children=[
     html.Div(id='output-graph'),
 ])
 
-
 @app.callback(
     Output(component_id='output-graph', component_property='children'),
     [Input(component_id='input', component_property='value')]
@@ -26,7 +25,7 @@ def update_value(input_data):
     df = web.DataReader(input_data, 'yahoo', start, end)
     df.reset_index(inplace=True)
     df.set_index("Date", inplace=True)
-    # df = df.drop("Symbol", axis=1)
+    df = df.drop("Symbol", axis=1)
 
     return dcc.Graph(
         id='example-graph',
@@ -39,7 +38,6 @@ def update_value(input_data):
             }
         }
     )
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
